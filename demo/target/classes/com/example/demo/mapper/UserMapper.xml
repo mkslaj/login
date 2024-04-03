@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.example.demo.mapper.UserMapper">
+    <insert id="add">
+        INSERT INTO user (username,password) VALUES (#{username},#{encodedPassword})
+    </insert>
+    <insert id="addKanri">
+        INSERT INTO user (username,usernamekanji,usernamekana,usermibun,email,password)
+        VALUES (#{username},#{usernamekanji},#{usernamekana},#{usermibun},#{email},#{password})
+    </insert>
+    <update id="update" parameterType="com.example.demo.entity.User">
+        UPDATE user SET usernamekanji=#{usernamekanji},
+                        usernamekana=#{usernamekana},
+                        email=#{email},
+                        usersyashin=#{usersyashin},
+         <if test="usermibun!=null">
+             usermibun=#{usermibun}
+         </if>
+        WHERE id=#{id}
+    </update>
+    <update id="updateAvatar" parameterType="java.lang.String">
+        UPDATE user SET usersyashin=#{urlSearchParams} WHERE id = #{id}
+    </update>
+    <update id="updatePasswordByUsername">
+        UPDATE user
+        SET password = #{encodedNewPwd}
+        WHERE username = #{username}
+    </update>
+    <delete id="delete">
+        DELETE FROM user WHERE id=#{id}
+    </delete>
+    <select id="findByUserName" resultType="com.example.demo.entity.User">
+        SELECT * FROM user WHERE username =#{username}
+    </select>
+    <select id="List" resultType="com.example.demo.entity.User">
+        SELECT * FROM user
+        <where>
+            <if test="username!=null">
+                username=#{username}
+            </if>
+            <if test="usermibun!=null">
+             AND usermibun=#{usermibun}
+            </if>
+        </where>
+    </select>
+</mapper>
