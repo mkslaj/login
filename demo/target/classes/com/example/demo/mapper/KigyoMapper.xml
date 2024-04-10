@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.example.demo.mapper.KigyoMapper">
+    <insert id="add" parameterType="com.example.demo.entity.Kigyo">
+        INSERT INTO kigyo ( name, gyousyu, kibo, jyusyo, faxx, email, tantousya,yuubinbango) VALUES
+        (#{name},#{gyousyu},#{kibo},#{jyusyo},#{faxx},#{email},#{tantousya},#{yuubinbango})
+    </insert>
+
+    <update id="update" parameterType="com.example.demo.entity.Kigyo">
+ UPDATE kigyo SET name=#{name},
+                  gyousyu=#{gyousyu},
+                  kibo=#{kibo},
+                  jyusyo=#{jyusyo},
+                  faxx=#{faxx},
+                  email=#{email},
+                  tantousya=#{tantousya},
+                  yuubinbango=#{yuubinbango}
+                  WHERE id=#{id}
+    </update>
+    <delete id="delete" parameterType="java.lang.Integer">
+        DELETE FROM kigyo WHERE id=#{id}
+    </delete>
+    <select id="List" resultType="com.example.demo.entity.Kigyo">
+        SELECT * FROM kigyo
+        <where>
+            <if test="name!=null">
+                name=#{name}
+            </if>
+        </where>
+    </select>
+</mapper>

@@ -15,7 +15,7 @@ public interface UserService {
 
    void update(User user);
 //写真を更新する
-   void updateAvatar(String avatarUrl);
+   void updateAvatar(String urlSearchParams);
 
    void updatePwd(String username, String encodedNewPwd);
 
